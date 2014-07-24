@@ -1,9 +1,10 @@
-package com.tw.kampala.androidbootcamp;
+package com.tw.kampala.androidbootcamp.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import com.tw.kampala.androidbootcamp.R;
 import roboguice.activity.RoboActivity;
 
 public class MainActivity extends RoboActivity {
