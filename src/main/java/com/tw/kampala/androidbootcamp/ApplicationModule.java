@@ -1,5 +1,6 @@
 package com.tw.kampala.androidbootcamp;
 
+import android.util.Log;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
