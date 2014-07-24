@@ -10,9 +10,9 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<platform.version> 4.1.1.4
-			</platform.version>
+		<platform.version> 4.1.1.4</platform.version>
 		<android.plugin.version>3.8.0</android.plugin.version>
+        <android.sdk.path>${env.ANDROID_HOME}</android.sdk.path>
 	</properties>
 
 	<dependencies>
@@ -31,6 +31,11 @@
             <groupId>com.squareup.retrofit</groupId>
             <artifactId>retrofit</artifactId>
             <version>1.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.android.support</groupId>
+            <artifactId>support-v4</artifactId>
+            <version>19.1.0</version>
         </dependency>
 	</dependencies>
 	<build>
@@ -57,4 +62,17 @@
 			</plugin>
 		</plugins>
 	</build>
+
+    <repositories>
+        <repository>
+            <id>android-repo</id>
+            <name>Android Repository</name>
+            <url>file:${android.sdk.path}/extras/android/m2repository</url>
+        </repository>
+        <repository>
+            <id>MavenCentral</id>
+            <name>Maven repository</name>
+            <url>http://repo1.maven.org/maven2/</url>
+        </repository>
+    </repositories>
 </project>
