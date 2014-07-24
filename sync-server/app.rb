@@ -2,16 +2,29 @@ require 'sinatra'
 require 'faker'
 require 'json'
 
-items = (1..20).map do |i|
-  { id: i, name: Faker::Name.name, city: Faker::Address.city, company: Faker::Company.name, email: Faker::Internet.email, phone: Faker::PhoneNumber.cell_phone, description: Faker::Hacker.say_something_smart }
+set :bind, '0.0.0.0'
+
+fake_items = (1..20).map do |i|
+  id = SecureRandom.uuid
+  [ id, { id: id, name: Faker::Name.name, city: Faker::Address.city, company: Faker::Company.name, email: Faker::Internet.email, phone: Faker::PhoneNumber.cell_phone, description: Faker::Hacker.say_something_smart } ]
+end
+items = Hash[*fake_items.flatten]
+
+get '/items/' do
+  sleep 1
+  content_type :json
+  { ids: items.keys }.to_json
 end
 
-get '/items' do
+put '/items/:id' do
+  sleep 1
   content_type :json
-  { items: items }.to_json
+  items[params[:id]] = params[:item]
+  200
 end
 
-post '/items' do
+get '/items/:id' do
+  sleep 1
   content_type :json
-  items << params[:item]
+  items[params[:id]].to_json
 end
