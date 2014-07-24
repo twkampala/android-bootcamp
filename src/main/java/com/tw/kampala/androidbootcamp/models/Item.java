@@ -22,7 +22,13 @@ public class Item {
     @DatabaseField
     private String description;
 
-    public Item() {}
+    public Item() {
+    }
+
+    public Item(String name, String city) {
+        this.name = name;
+        this.city = city;
+    }
 
     public int getId() {
         return id;
