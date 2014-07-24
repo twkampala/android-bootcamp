@@ -31,21 +31,26 @@ public class SyncService extends RoboIntentService {
                 .setContentTitle("Sync")
                 .setContentText("Syncing items...")
                 .setProgress(0, 0, true);
-
         notificationManager.notify(NOTIFICATION_ID, builder.build());
 
-        ItemIds itemIds = itemApi.getItems();
-        int counter = 0;
+        try {
+            ItemIds itemIds = itemApi.getItems();
+            int counter = 0;
 
-        for (String id: itemIds.getIds()) {
-            Item item = itemApi.getItem(id);
-            builder.setProgress(itemIds.getIds().size(), ++counter, false);
+            for (String id : itemIds.getIds()) {
+                Item item = itemApi.getItem(id);
+                builder.setProgress(itemIds.getIds().size(), ++counter, false);
+                notificationManager.notify(NOTIFICATION_ID, builder.build());
+            }
+
+            builder.setContentText("Syncing complete.");
+            notificationManager.notify(NOTIFICATION_ID, builder.build());
+        } catch (Exception e) {
+            builder.setContentText("Sync failed");
             notificationManager.notify(NOTIFICATION_ID, builder.build());
         }
 
-        builder.setContentText("Syncing complete.");
-        notificationManager.notify(NOTIFICATION_ID, builder.build());
-
         stopSelf();
     }
+
 }
