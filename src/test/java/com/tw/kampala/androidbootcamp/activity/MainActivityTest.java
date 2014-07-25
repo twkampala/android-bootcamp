@@ -1,15 +1,12 @@
 package com.tw.kampala.androidbootcamp.activity;
 
 import android.app.Application;
-import com.google.gson.reflect.TypeToken;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.util.Modules;
 import com.j256.ormlite.dao.CloseableWrappedIterable;
 import com.j256.ormlite.dao.Dao;
-import com.tw.kampala.androidbootcamp.database.DatabaseHelper;
 import com.tw.kampala.androidbootcamp.models.Item;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,18 +32,10 @@ public class MainActivityTest {
                 Modules.override(RoboGuice.newDefaultRoboModule(application)).with(new MyTestModule()));
     }
 
-    @After
-    public void teardown() {
-        Application application = Robolectric.application;
-        RoboGuice.setBaseApplicationInjector(application,
-                RoboGuice.DEFAULT_STAGE,
-                RoboGuice.newDefaultRoboModule(application));
-    }
-
     @Test
     public void createTriggersCompute() throws InterruptedException, SQLException {
         CloseableWrappedIterable mockWrappedIterable = mock(CloseableWrappedIterable.class);
-        //Ugly
+
         when(mockDao.getWrappedIterable()).thenReturn(mockWrappedIterable);
         when(mockWrappedIterable.iterator()).thenReturn(new ArrayList<Item>().iterator());
 
@@ -55,7 +44,6 @@ public class MainActivityTest {
         verify(mockDao).getWrappedIterable();
         verify(mockWrappedIterable).iterator();
     }
-
 
     public class MyTestModule extends AbstractModule {
         @Override
