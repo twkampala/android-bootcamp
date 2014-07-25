@@ -11,20 +11,20 @@ end
 items = Hash[*fake_items.flatten]
 
 get '/items/' do
-  sleep 1
+  sleep 0.5
   content_type :json
   { ids: items.keys }.to_json
 end
 
 put '/items/:id' do
-  sleep 1
+  sleep 0.5
   content_type :json
   items[params[:id]] = params[:item]
   200
 end
 
 get '/items/:id' do
-  sleep 1
+  sleep 0.5
   content_type :json
   items[params[:id]].to_json
 end

@@ -1,6 +1,9 @@
 package com.tw.kampala.androidbootcamp.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -16,6 +19,7 @@ import com.tw.kampala.androidbootcamp.service.SyncService;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -42,7 +46,6 @@ public class MainActivity extends RoboActivity {
                 startService(intent);
             }
         });
-        iterateThroughItems();
 
         ArrayList<Item> items = new ArrayList<Item>();
         for (int i = 0; i < 10; i++) {
@@ -59,6 +62,17 @@ public class MainActivity extends RoboActivity {
             }
         });
 
+        registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                itemAdapter.clear();
+                try {
+                    itemAdapter.addAll(itemDAO.queryForAll());
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }, new IntentFilter(SyncService.SYNC_COMPLETE));
     }
 
     @Override
@@ -73,10 +87,4 @@ public class MainActivity extends RoboActivity {
         OpenHelperManager.releaseHelper(); // Can we just use ContextScope on a DatabaseHelper?
     }
 
-    private void iterateThroughItems() {
-        CloseableWrappedIterable<Item> wrappedIterable = itemDAO.getWrappedIterable();  // does this close itself?
-        Iterator<Item> itemIterator = wrappedIterable.iterator();
-        while (itemIterator.hasNext()) {
-        }
-    }
 }
