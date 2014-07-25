@@ -1,10 +1,13 @@
 package com.tw.kampala.androidbootcamp.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.tw.kampala.androidbootcamp.R;
 import com.tw.kampala.androidbootcamp.models.Item;
@@ -24,12 +27,25 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         LayoutInflater inflater = (LayoutInflater) getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(layoutId, parent, false);
+        ImageView itemImageView = (ImageView) rowView.findViewById(R.id.item_image_view);
         TextView nameTextView = (TextView) rowView.findViewById(R.id.name_text_view);
+        TextView descriptionTextView = (TextView) rowView.findViewById(R.id.description_text_view);
+        TextView companyTextView = (TextView) rowView.findViewById(R.id.company_text_view);
         TextView addressTextView = (TextView) rowView.findViewById(R.id.address_text_view);
+
         Item item = getItem(position);
+
+        itemImageView.setImageBitmap(buildItemBitmap(item));
         nameTextView.setText(item.getName());
+        descriptionTextView.setText(item.getDescription());
+        companyTextView.setText(item.getCompany());
         addressTextView.setText(item.getCity());
 
         return rowView;
+    }
+
+    private Bitmap buildItemBitmap(Item item) {
+        byte[] itemImageBytes = item.getImageBytes();
+        return BitmapFactory.decodeByteArray(itemImageBytes, 0, itemImageBytes.length);
     }
 }

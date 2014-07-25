@@ -31,6 +31,7 @@ get '/items/:id/?' do
 end
 
 get '/items/:id/avatar/?' do
-  content_type 'image/jpeg'
+  content_type 'image/jpg'
+  headers["Content-Disposition"] = "inline;filename=the_file.jpg"
   RubyIdenticon.create params[:id]
 end

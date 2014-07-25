@@ -10,7 +10,13 @@ import com.tw.kampala.androidbootcamp.R;
 import com.tw.kampala.androidbootcamp.models.Item;
 import com.tw.kampala.androidbootcamp.models.ItemIds;
 import com.tw.kampala.androidbootcamp.service.api.ItemAPI;
+import retrofit.client.Response;
+import retrofit.mime.TypedByteArray;
 import roboguice.service.RoboIntentService;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class SyncService extends RoboIntentService {
 
@@ -45,6 +51,10 @@ public class SyncService extends RoboIntentService {
 
             for (String id : itemIds.getIds()) {
                 Item item = itemAPI.getItem(id);
+
+                Response itemImage = itemAPI.getItemImage(id);
+                item.setImageBytes(readFully(itemImage.getBody().in()));
+
                 itemDao.createOrUpdate(item);
 
                 builder.setProgress(itemIds.getIds().size(), ++counter, false);
@@ -62,6 +72,17 @@ public class SyncService extends RoboIntentService {
         sendBroadcast(new Intent(SYNC_COMPLETE));
 
         stopSelf();
+    }
+
+    public static byte[] readFully(InputStream input) throws IOException {
+        byte[] buffer = new byte[8192];
+        int bytesRead;
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        while ((bytesRead = input.read(buffer)) != -1)
+        {
+            output.write(buffer, 0, bytesRead);
+        }
+        return output.toByteArray();
     }
 
 }

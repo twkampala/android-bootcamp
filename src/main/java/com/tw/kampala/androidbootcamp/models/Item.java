@@ -1,5 +1,6 @@
 package com.tw.kampala.androidbootcamp.models;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.AllArgsConstructor;
@@ -32,5 +33,7 @@ public class Item {
     private String phone;
     @DatabaseField
     private String description;
+    @DatabaseField(dataType = DataType.BYTE_ARRAY)
+    private byte[] imageBytes;
 
 }

@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.*;
 import com.google.inject.Inject;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.dao.CloseableWrappedIterable;
 import com.j256.ormlite.dao.Dao;
 import com.tw.kampala.androidbootcamp.R;
 import com.tw.kampala.androidbootcamp.adapter.ItemAdapter;
@@ -20,8 +19,7 @@ import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
 
 public class MainActivity extends RoboActivity {
 
@@ -47,12 +45,8 @@ public class MainActivity extends RoboActivity {
             }
         });
 
-        ArrayList<Item> items = new ArrayList<Item>();
-        for (int i = 0; i < 10; i++) {
-            items.add(Item.builder().name("User " + i).city("City").build());
-        }
 
-        final ArrayAdapter<Item> itemAdapter = new ItemAdapter(this, R.layout.item_row_layout, items);
+        final ArrayAdapter<Item> itemAdapter = new ItemAdapter(this, R.layout.item_row_layout, loadItems());
         itemsListView.setAdapter(itemAdapter);
         itemsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -66,13 +60,19 @@ public class MainActivity extends RoboActivity {
             @Override
             public void onReceive(Context context, Intent intent) {
                 itemAdapter.clear();
-                try {
-                    itemAdapter.addAll(itemDAO.queryForAll());
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
+                itemAdapter.addAll(loadItems());
             }
         }, new IntentFilter(SyncService.SYNC_COMPLETE));
+    }
+
+    private List<Item> loadItems() {
+        List<Item> items;
+        try {
+            items = itemDAO.queryForAll();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return items;
     }
 
     @Override

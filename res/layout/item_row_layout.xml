@@ -1,23 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <TextView android:layout_width="wrap_content"
+    <ImageView android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/item_image_view"/>
+    <TextView android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               android:id="@+id/name_text_view"
               android:textSize="18sp"
-              android:textStyle="bold"
-              android:layout_alignParentLeft="true"
-
+              android:textStyle="italic"
+              android:gravity="left"
             />
-    <TextView android:layout_width="wrap_content"
+    <TextView android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/description_text_view"
+              android:textSize="18sp"
+              android:textStyle="italic"
+              android:gravity="left"
+            />
+    <TextView android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/company_text_view"
+              android:textSize="18sp"
+              android:textStyle="italic"
+              android:gravity="right"
+            />
+    <TextView android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               android:id="@+id/address_text_view"
               android:textSize="18sp"
-              android:textStyle="italic"
-              android:layout_alignParentRight="true"
+              android:textStyle="bold"
+              android:gravity="right"
             />
 
-</RelativeLayout>
+</LinearLayout>
