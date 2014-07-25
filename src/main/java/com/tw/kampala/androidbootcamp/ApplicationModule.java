@@ -1,12 +1,12 @@
 
 package com.tw.kampala.androidbootcamp;
+
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.tw.kampala.androidbootcamp.database.DatabaseHelper;
 import com.tw.kampala.androidbootcamp.database.DatabaseHelperProvider;
-import com.tw.kampala.androidbootcamp.service.api.ItemAPI;
->>>>>>> Injecting DatabaseHelper with Roboguice through a Provider
+import com.tw.kampala.androidbootcamp.service.api.ItemApi;
 import retrofit.RestAdapter;
 
 public class ApplicationModule extends AbstractModule {
