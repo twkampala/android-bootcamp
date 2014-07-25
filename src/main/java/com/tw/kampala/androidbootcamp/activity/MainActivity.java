@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.*;
+import com.google.inject.Inject;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.CloseableWrappedIterable;
 import com.j256.ormlite.dao.Dao;
@@ -28,6 +29,7 @@ public class MainActivity extends RoboActivity {
     @InjectView(R.id.items_list_view)
     ListView itemsListView;
 
+    @Inject
     private DatabaseHelper databaseHelper;
 
     @Override
@@ -42,7 +44,6 @@ public class MainActivity extends RoboActivity {
                 startService(intent);
             }
         });
-
         iterateThroughItems();
 
         ArrayList<Item> items = new ArrayList<Item>();
@@ -71,24 +72,13 @@ public class MainActivity extends RoboActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (databaseHelper != null) {
-            OpenHelperManager.releaseHelper();
-            databaseHelper = null;
-        }
-    }
-
-    private DatabaseHelper getHelper() {
-        if (databaseHelper == null) {
-            databaseHelper =
-                    OpenHelperManager.getHelper(this, DatabaseHelper.class);
-        }
-        return databaseHelper;
+        OpenHelperManager.releaseHelper(); // Can we just use ContextScope on a DatabaseHelper?
     }
 
     private void iterateThroughItems() {
         try {
-            Dao<Item, Integer> dao = getHelper().getDao(Item.class);
-            CloseableWrappedIterable<Item> wrappedIterable = dao.getWrappedIterable();
+            Dao<Item, Integer> dao = databaseHelper.getDao(Item.class);
+            CloseableWrappedIterable<Item> wrappedIterable = dao.getWrappedIterable();  // does this close itself?
             Iterator<Item> itemIterator = wrappedIterable.iterator();
             while (itemIterator.hasNext()) {
             }

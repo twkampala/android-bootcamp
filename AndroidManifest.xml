@@ -23,6 +23,9 @@
         </activity>
 
         <service android:name=".service.SyncService"/>
+
+        <meta-data android:name="roboguice.modules"
+                   android:value="com.tw.kampala.androidbootcamp.ApplicationModule" />
     </application>
 
 </manifest>
