@@ -11,13 +11,11 @@ import com.j256.ormlite.dao.CloseableWrappedIterable;
 import com.j256.ormlite.dao.Dao;
 import com.tw.kampala.androidbootcamp.R;
 import com.tw.kampala.androidbootcamp.adapter.ItemAdapter;
-import com.tw.kampala.androidbootcamp.database.DatabaseHelper;
 import com.tw.kampala.androidbootcamp.models.Item;
 import com.tw.kampala.androidbootcamp.service.SyncService;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -30,7 +28,7 @@ public class MainActivity extends RoboActivity {
     ListView itemsListView;
 
     @Inject
-    private DatabaseHelper databaseHelper;
+    private Dao<Item, String> itemDAO;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,15 +74,9 @@ public class MainActivity extends RoboActivity {
     }
 
     private void iterateThroughItems() {
-        try {
-            Dao<Item, Integer> dao = databaseHelper.getDao(Item.class);
-            CloseableWrappedIterable<Item> wrappedIterable = dao.getWrappedIterable();  // does this close itself?
-            Iterator<Item> itemIterator = wrappedIterable.iterator();
-            while (itemIterator.hasNext()) {
-            }
-            ;
-        } catch (SQLException e) {
-            throw (new RuntimeException(e));
+        CloseableWrappedIterable<Item> wrappedIterable = itemDAO.getWrappedIterable();  // does this close itself?
+        Iterator<Item> itemIterator = wrappedIterable.iterator();
+        while (itemIterator.hasNext()) {
         }
     }
 }
