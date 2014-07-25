@@ -49,7 +49,7 @@ public class MainActivity extends RoboActivity {
 
         ArrayList<Item> items = new ArrayList<Item>();
         for (int i = 0; i < 10; i++) {
-            items.add(new Item(String.format("User - %d", i), "City"));
+            items.add(Item.builder().name("User " + i).city("City").build());
         }
 
         final ArrayAdapter<Item> itemAdapter = new ItemAdapter(this, R.layout.item_row_layout, items);
