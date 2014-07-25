@@ -7,7 +7,7 @@ import retrofit.http.Path;
 
 import java.util.List;
 
-public interface ItemApi {
+public interface ItemAPI {
 
     @GET("/items/")
     public ItemIds getItems();

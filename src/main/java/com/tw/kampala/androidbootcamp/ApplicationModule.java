@@ -6,7 +6,7 @@ import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.tw.kampala.androidbootcamp.database.DatabaseHelper;
 import com.tw.kampala.androidbootcamp.database.DatabaseHelperProvider;
-import com.tw.kampala.androidbootcamp.service.api.ItemApi;
+import com.tw.kampala.androidbootcamp.service.api.ItemAPI;
 import retrofit.RestAdapter;
 
 public class ApplicationModule extends AbstractModule {
@@ -24,8 +24,8 @@ public class ApplicationModule extends AbstractModule {
     }
 
     @Provides @Singleton
-    public ItemApi getItemAPI(RestAdapter restAdapter) {
-        return restAdapter.create(ItemApi.class);
+    public ItemAPI getItemAPI(RestAdapter restAdapter) {
+        return restAdapter.create(ItemAPI.class);
     }
 
 }

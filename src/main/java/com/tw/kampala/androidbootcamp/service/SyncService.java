@@ -7,7 +7,7 @@ import com.google.inject.Inject;
 import com.tw.kampala.androidbootcamp.R;
 import com.tw.kampala.androidbootcamp.models.Item;
 import com.tw.kampala.androidbootcamp.models.ItemIds;
-import com.tw.kampala.androidbootcamp.service.api.ItemApi;
+import com.tw.kampala.androidbootcamp.service.api.ItemAPI;
 import roboguice.service.RoboIntentService;
 
 public class SyncService extends RoboIntentService {
@@ -18,7 +18,7 @@ public class SyncService extends RoboIntentService {
     NotificationManager notificationManager;
 
     @Inject
-    ItemApi itemApi;
+    ItemAPI itemAPI;
 
     public SyncService() {
         super("SyncService");
@@ -34,11 +34,11 @@ public class SyncService extends RoboIntentService {
         notificationManager.notify(NOTIFICATION_ID, builder.build());
 
         try {
-            ItemIds itemIds = itemApi.getItems();
+            ItemIds itemIds = itemAPI.getItems();
             int counter = 0;
 
             for (String id : itemIds.getIds()) {
-                Item item = itemApi.getItem(id);
+                Item item = itemAPI.getItem(id);
                 builder.setProgress(itemIds.getIds().size(), ++counter, false);
                 notificationManager.notify(NOTIFICATION_ID, builder.build());
             }
