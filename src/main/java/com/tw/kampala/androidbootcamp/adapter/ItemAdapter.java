@@ -1,8 +1,6 @@
 package com.tw.kampala.androidbootcamp.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +33,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
 
         Item item = getItem(position);
 
-        itemImageView.setImageBitmap(buildItemBitmap(item));
+        itemImageView.setImageBitmap(item.buildItemBitmap());
         nameTextView.setText(item.getName());
         descriptionTextView.setText(item.getDescription());
         companyTextView.setText(item.getCompany());
@@ -44,8 +42,4 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         return rowView;
     }
 
-    private Bitmap buildItemBitmap(Item item) {
-        byte[] itemImageBytes = item.getImageBytes();
-        return BitmapFactory.decodeByteArray(itemImageBytes, 0, itemImageBytes.length);
-    }
 }

@@ -23,7 +23,7 @@ public class ApplicationModule extends AbstractModule {
     @Provides @Singleton
     public RestAdapter getRestAdapter() {
         return new RestAdapter.Builder()
-            .setEndpoint("http://10.0.2.2:4567") // Hard coded to localhost, can change later to a dialog
+            .setEndpoint("http://192.168.56.1:4567") // Hard coded to localhost, can change later to a dialog 192.168.56.1 for genymotion
             .build();
     }
 

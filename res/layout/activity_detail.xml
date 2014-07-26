@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <ImageView android:layout_width="fill_parent"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/item_image_view"/>
+
+        <TextView android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:text="@string/name"
+                  android:textStyle="bold"
+                  android:padding="@dimen/view_padding"/>
+        <EditText
+                android:layout_width="fill_parent"
+                android:inputType="textPostalAddress"
+                android:layout_height="wrap_content"
+                android:id="@+id/edit_name"
+                android:padding="@dimen/view_padding"
+                />
+        <TextView android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:text="@string/email"
+                  android:textStyle="bold"
+                  android:padding="@dimen/view_padding"/>
+        <EditText
+                android:layout_width="fill_parent"
+                android:inputType="textEmailAddress"
+                android:layout_height="wrap_content"
+                android:id="@+id/edit_email"
+                android:padding="@dimen/view_padding"
+                />
+
+        <TextView android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:text="@string/phone"
+                  android:textStyle="bold"
+                  android:padding="@dimen/view_padding"/>
+        <EditText
+                android:layout_width="fill_parent"
+                android:inputType="phone"
+                android:layout_height="wrap_content"
+                android:id="@+id/edit_phone"
+                android:padding="@dimen/view_padding"
+                />
+        <TextView android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:textStyle="bold"
+                  android:text="@string/city"
+                  android:padding="@dimen/view_padding"/>
+        <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edit_city"
+                android:padding="@dimen/view_padding"
+                />
+
+        <TextView android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:text="@string/company"
+                  android:textStyle="bold"
+                  android:padding="@dimen/view_padding"/>
+        <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edit_company"
+                android:padding="@dimen/view_padding"
+                />
+
+
+        <TextView android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:text="@string/description"
+                  android:textStyle="bold"
+                  android:padding="@dimen/view_padding"/>
+        <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edit_description"
+                android:padding="@dimen/view_padding"
+                />
+
+
+        <Button android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/save_button"
+                android:text="@string/save"
+                />
+
+    </LinearLayout>
+</ScrollView>

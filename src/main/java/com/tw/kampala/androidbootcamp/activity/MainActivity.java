@@ -7,7 +7,10 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 import com.google.inject.Inject;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
@@ -23,6 +26,7 @@ import java.util.List;
 
 public class MainActivity extends RoboActivity {
 
+    public static final String ITEM = "item";
     @InjectView(R.id.sync_button)
     Button syncButton;
 
@@ -52,7 +56,9 @@ public class MainActivity extends RoboActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Item item = itemAdapter.getItem(position);
-                Toast.makeText(MainActivity.this, String.format("Item selected %s", item.getName()), Toast.LENGTH_SHORT).show();
+                Intent getDetailIntent = new Intent(MainActivity.this, DetailActivity.class);
+                getDetailIntent.putExtra(ITEM, item);
+                startActivity(getDetailIntent);
             }
         });
 
